@@ -1,11 +1,8 @@
-/* ============================================
-   VALENTINE'S SITE — Shared Stylesheet
-   Palette: soft pinks, deep rose, warm cream
-   ============================================ */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500&display=swap');
 
-/* --- CSS Variables --- */
+
 :root {
   --rose-deep: #b8344f;
   --rose-mid: #d4637a;
@@ -22,7 +19,7 @@
   --font-body: 'Cormorant Garamond', 'Times New Roman', serif;
 }
 
-/* --- Reset & Base --- */
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
@@ -40,10 +37,7 @@ body {
   font-weight: 600;
 }
 
-/* ============================================
-   FLOWERY HEARTS BACKGROUND (reusable)
-   Inline SVG pattern via CSS — no external images
-   ============================================ */
+
 .bg-valentine {
   position: fixed;
   inset: 0;
@@ -58,7 +52,7 @@ body {
   background-repeat: repeat;
 }
 
-/* Soft overlay so text is always readable */
+
 .bg-overlay {
   position: fixed;
   inset: 0;
@@ -71,9 +65,7 @@ body {
   pointer-events: none;
 }
 
-/* ============================================
-   PAGE LAYOUT
-   ============================================ */
+
 .page-wrap {
   display: flex;
   flex-direction: column;
@@ -84,9 +76,7 @@ body {
   text-align: center;
 }
 
-/* ============================================
-   TYPOGRAPHY
-   ============================================ */
+
 .heading-main {
   font-family: var(--font-display);
   font-weight: 900;
@@ -115,9 +105,7 @@ body {
   text-shadow: 0 1px 6px rgba(180, 50, 80, 0.12);
 }
 
-/* ============================================
-   POSTCARD (Page 1)
-   ============================================ */
+
 .postcard-link {
   text-decoration: none;
   display: block;
@@ -141,7 +129,7 @@ body {
   overflow: hidden;
 }
 
-/* Postcard inner decoration: stamp + lines */
+
 .postcard::before {
   content: '♥';
   position: absolute;
@@ -208,7 +196,7 @@ body {
   margin: 1rem auto;
 }
 
-/* Floating animation */
+
 @keyframes float-gentle {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
@@ -218,7 +206,7 @@ body {
   animation: float-gentle 4s ease-in-out infinite;
 }
 
-/* Hover / focus */
+
 .postcard-link:hover .postcard,
 .postcard-link:focus .postcard {
   transform: translateY(-6px) rotate(-0.5deg);
@@ -233,9 +221,7 @@ body {
   outline-offset: 4px;
 }
 
-/* ============================================
-   ANIMATED HEART SVG (Page 2 placeholder)
-   ============================================ */
+
 .gif-area {
   margin-bottom: 2rem;
 }
@@ -276,9 +262,7 @@ body {
 .heart-anim-svg .sparkle:nth-child(3) { animation-delay: 0.8s; }
 .heart-anim-svg .sparkle:nth-child(4) { animation-delay: 1.2s; }
 
-/* ============================================
-   BUTTONS
-   ============================================ */
+
 .btn-row {
   display: flex;
   gap: 1.25rem;
@@ -328,9 +312,7 @@ body {
   font-weight: 700;
 }
 
-/* ============================================
-   PHOTO FRAMES (Page 3 & 4 — same component)
-   ============================================ */
+
 .frames-row {
   display: flex;
   gap: 1.5rem;
@@ -362,7 +344,7 @@ body {
   box-shadow: 0 12px 36px rgba(180, 50, 80, 0.18);
 }
 
-/* Decorative corner flourishes */
+
 .photo-frame::before,
 .photo-frame::after {
   content: '❦';
@@ -397,9 +379,7 @@ body {
   opacity: 0.5;
 }
 
-/* ============================================
-   LINK BUTTON (Page 3 "CLICK CLICK")
-   ============================================ */
+
 .btn-link {
   font-family: var(--font-display);
   font-size: 1.3rem;
@@ -427,9 +407,7 @@ body {
   outline-offset: 3px;
 }
 
-/* ============================================
-   ENTRANCE ANIMATIONS
-   ============================================ */
+
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -445,9 +423,7 @@ body {
 .anim-delay-4 { animation-delay: 0.6s; }
 .anim-delay-5 { animation-delay: 0.75s; }
 
-/* ============================================
-   FALLING PETALS (decorative, via JS)
-   ============================================ */
+
 .petal {
   position: fixed;
   top: -40px;
@@ -465,9 +441,7 @@ body {
   100% { opacity: 0; transform: translateY(105vh) rotate(360deg); }
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
+
 @media (max-width: 640px) {
   .frames-row {
     flex-direction: column;

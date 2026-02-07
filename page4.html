@@ -7,9 +7,9 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💝</text></svg>">
   <style>
-    /* === Page 4 Selection Effects === */
+    
 
-    /* When a photo is selected, blur everything else */
+  
     .page-wrap.has-selection .heading-main,
     .page-wrap.has-selection .bg-valentine,
     .page-wrap.has-selection .bg-overlay {
@@ -24,13 +24,13 @@
       transition: all 0.5s ease;
     }
 
-    /* Make frames clickable */
+ 
     .photo-frame {
       cursor: pointer;
       position: relative;
     }
 
-    /* Starlight glow border on selected */
+
     .photo-frame.selected {
       border-color: var(--gold-soft);
       transform: scale(1.08) translateY(-8px) !important;
@@ -64,7 +64,7 @@
       }
     }
 
-    /* Sparkle particles around selected frame */
+
     .photo-frame.selected::before {
       content: '✦';
       position: absolute;
@@ -94,7 +94,7 @@
       50% { opacity: 1; transform: rotate(180deg) scale(1.2); }
     }
 
-    /* "You chose this!" label */
+
     .chosen-label {
       display: none;
       font-family: var(--font-display);
@@ -111,7 +111,7 @@
       display: block;
     }
 
-    /* Extra sparkle dots */
+
     .sparkle-dot {
       position: absolute;
       width: 6px;
@@ -181,16 +181,16 @@
   <script src="script.js"></script>
   <script>
     function selectPhoto(frame) {
-      // Remove previous selection
+ 
       document.querySelectorAll('.photo-frame').forEach(f => f.classList.remove('selected'));
 
       // Select this one
       frame.classList.add('selected');
 
-      // Add blur class to page
+
       document.getElementById('pageWrap').classList.add('has-selection');
 
-      // Show label
+ 
       document.getElementById('chosenLabel').style.display = 'block';
     }
   </script>

@@ -1,7 +1,4 @@
-/* ============================================
-   Valentine's Site — Minimal JS
-   Falling petals decoration
-   ============================================ */
+
 
 (function () {
   'use strict';
@@ -24,7 +21,7 @@
 
     document.body.appendChild(petal);
 
-    // Remove after animation
+
     setTimeout(() => {
       petal.remove();
     }, (duration + 7) * 1000);
@@ -34,7 +31,7 @@
     for (let i = 0; i < PETAL_COUNT; i++) {
       createPetal();
     }
-    // Continuously spawn more
+
     setInterval(() => { createPetal(); }, 3000);
   }
 
