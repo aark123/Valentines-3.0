@@ -6,34 +6,193 @@
   <title>Pick One! 💝</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💝</text></svg>">
+  <style>
+    /* === Page 4 Selection Effects === */
+
+    /* When a photo is selected, blur everything else */
+    .page-wrap.has-selection .heading-main,
+    .page-wrap.has-selection .bg-valentine,
+    .page-wrap.has-selection .bg-overlay {
+      filter: blur(6px);
+      transition: filter 0.5s ease;
+    }
+
+    .page-wrap.has-selection .photo-frame:not(.selected) {
+      filter: blur(4px) grayscale(0.3);
+      opacity: 0.4;
+      transform: scale(0.95);
+      transition: all 0.5s ease;
+    }
+
+    /* Make frames clickable */
+    .photo-frame {
+      cursor: pointer;
+      position: relative;
+    }
+
+    /* Starlight glow border on selected */
+    .photo-frame.selected {
+      border-color: var(--gold-soft);
+      transform: scale(1.08) translateY(-8px) !important;
+      z-index: 10;
+      transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+      box-shadow:
+        0 0 20px rgba(232, 200, 122, 0.6),
+        0 0 40px rgba(232, 200, 122, 0.35),
+        0 0 80px rgba(232, 200, 122, 0.2),
+        0 0 120px rgba(242, 166, 181, 0.15),
+        0 12px 40px rgba(180, 50, 80, 0.2);
+      animation: starlight-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes starlight-pulse {
+      0%, 100% {
+        box-shadow:
+          0 0 20px rgba(232, 200, 122, 0.6),
+          0 0 40px rgba(232, 200, 122, 0.35),
+          0 0 80px rgba(232, 200, 122, 0.2),
+          0 0 120px rgba(242, 166, 181, 0.15),
+          0 12px 40px rgba(180, 50, 80, 0.2);
+      }
+      50% {
+        box-shadow:
+          0 0 25px rgba(232, 200, 122, 0.8),
+          0 0 50px rgba(232, 200, 122, 0.5),
+          0 0 100px rgba(232, 200, 122, 0.3),
+          0 0 140px rgba(242, 166, 181, 0.25),
+          0 16px 48px rgba(180, 50, 80, 0.25);
+      }
+    }
+
+    /* Sparkle particles around selected frame */
+    .photo-frame.selected::before {
+      content: '✦';
+      position: absolute;
+      top: -12px;
+      left: -12px;
+      font-size: 1.4rem;
+      color: var(--gold-soft);
+      opacity: 1;
+      animation: sparkle-spin 1.5s ease-in-out infinite;
+      z-index: 11;
+    }
+
+    .photo-frame.selected::after {
+      content: '✦';
+      position: absolute;
+      bottom: -12px;
+      right: -12px;
+      font-size: 1.4rem;
+      color: var(--gold-soft);
+      opacity: 1;
+      animation: sparkle-spin 1.5s ease-in-out infinite 0.4s;
+      z-index: 11;
+    }
+
+    @keyframes sparkle-spin {
+      0%, 100% { opacity: 0.5; transform: rotate(0deg) scale(0.8); }
+      50% { opacity: 1; transform: rotate(180deg) scale(1.2); }
+    }
+
+    /* "You chose this!" label */
+    .chosen-label {
+      display: none;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.3rem;
+      color: var(--gold-soft);
+      text-shadow: 0 2px 8px rgba(232, 200, 122, 0.5);
+      margin-top: 1.5rem;
+      animation: fade-up 0.6s ease-out both;
+      letter-spacing: 0.06em;
+    }
+
+    .page-wrap.has-selection .chosen-label {
+      display: block;
+    }
+
+    /* Extra sparkle dots */
+    .sparkle-dot {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--gold-soft);
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .photo-frame.selected .sparkle-dot {
+      animation: dot-twinkle 1.8s ease-in-out infinite;
+    }
+
+    .sparkle-dot:nth-child(2) { top: -8px; right: 30%; animation-delay: 0.2s; }
+    .sparkle-dot:nth-child(3) { bottom: -8px; left: 20%; animation-delay: 0.6s; }
+    .sparkle-dot:nth-child(4) { top: 40%; left: -8px; animation-delay: 1.0s; }
+    .sparkle-dot:nth-child(5) { top: 30%; right: -8px; animation-delay: 0.4s; }
+
+    @keyframes dot-twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+  </style>
 </head>
 <body>
 
   <div class="bg-valentine" aria-hidden="true"></div>
   <div class="bg-overlay" aria-hidden="true"></div>
 
-  <main class="page-wrap">
+  <main class="page-wrap" id="pageWrap">
 
     <h1 class="heading-main anim-fade-up">PICK ONE NOW</h1>
 
     <div class="frames-row">
 
-      <div class="photo-frame anim-fade-up anim-delay-1">
+      <div class="photo-frame anim-fade-up anim-delay-1" onclick="selectPhoto(this)">
         <img src="assets/photo1.jpg" alt="Option 1">
+        <span class="sparkle-dot"></span>
+        <span class="sparkle-dot"></span>
+        <span class="sparkle-dot"></span>
+        <span class="sparkle-dot"></span>
       </div>
 
-      <div class="photo-frame anim-fade-up anim-delay-2">
+      <div class="photo-frame anim-fade-up anim-delay-2" onclick="selectPhoto(this)">
         <img src="assets/photo2.jpg" alt="Option 2">
+        <span class="sparkle-dot"></span>
+        <span class="sparkle-dot"></span>
+        <span class="sparkle-dot"></span>
+        <span class="sparkle-dot"></span>
       </div>
 
-      <div class="photo-frame anim-fade-up anim-delay-3">
+      <div class="photo-frame anim-fade-up anim-delay-3" onclick="selectPhoto(this)">
         <img src="assets/photo3.jpg" alt="Option 3">
+        <span class="sparkle-dot"></span>
+        <span class="sparkle-dot"></span>
+        <span class="sparkle-dot"></span>
+        <span class="sparkle-dot"></span>
       </div>
 
     </div>
 
+    <p class="chosen-label" id="chosenLabel">💛 You chose this one! 💛</p>
+
   </main>
 
   <script src="script.js"></script>
+  <script>
+    function selectPhoto(frame) {
+      // Remove previous selection
+      document.querySelectorAll('.photo-frame').forEach(f => f.classList.remove('selected'));
+
+      // Select this one
+      frame.classList.add('selected');
+
+      // Add blur class to page
+      document.getElementById('pageWrap').classList.add('has-selection');
+
+      // Show label
+      document.getElementById('chosenLabel').style.display = 'block';
+    }
+  </script>
 </body>
 </html>
