@@ -20,6 +20,7 @@
   --shadow-color: rgba(180, 50, 80, 0.15);
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-bold:var(--font-bold) 
 }
 
 /* --- Reset & Base --- */
