@@ -1,5 +1,3 @@
-
-
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500&display=swap');
 
 
@@ -106,69 +104,97 @@ body {
 }
 
 
+/* ============================================
+   POSTCARD — 3D with perspective
+   ============================================ */
 .postcard-link {
   text-decoration: none;
   display: block;
   outline: none;
   cursor: pointer;
+  perspective: 800px;
 }
 
 .postcard {
   position: relative;
-  width: min(88vw, 440px);
-  min-height: 240px;
+  width: min(88vw, 480px);
+  min-height: 260px;
   background: var(--white-soft);
   border: 3px solid var(--rose-light);
-  border-radius: 6px;
+  border-radius: 8px;
   box-shadow:
-    0 8px 32px rgba(180, 50, 80, 0.12),
-    0 2px 8px rgba(180, 50, 80, 0.08),
+    0 12px 40px rgba(180, 50, 80, 0.15),
+    0 4px 12px rgba(180, 50, 80, 0.08),
     inset 0 0 0 6px var(--cream-warm);
   padding: 2rem 1.75rem;
-  transition: transform 0.4s cubic-bezier(.25,.8,.25,1), box-shadow 0.4s ease;
-  overflow: hidden;
+  padding-top: 5rem;
+  transition: transform 0.6s cubic-bezier(.25,.8,.25,1), box-shadow 0.6s ease;
+  overflow: visible;
+  transform-style: preserve-3d;
+  transform: rotateX(2deg) rotateY(-1deg);
 }
 
-
+/* Stamp — top-right corner, above text */
 .postcard::before {
   content: '♥';
   position: absolute;
-  top: 14px;
-  right: 18px;
-  width: 52px;
-  height: 60px;
+  top: 12px;
+  right: 14px;
+  width: 48px;
+  height: 54px;
   border: 2px dashed var(--rose-light);
   border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: var(--rose-mid);
   background: var(--blush);
-  line-height: 60px;
+  line-height: 54px;
   text-align: center;
+  z-index: 2;
+  transform: translateZ(8px);
 }
 
+/* Address lines — top-right, next to stamp */
 .postcard::after {
   content: '';
   position: absolute;
-  right: 80px;
-  top: 20px;
-  width: 100px;
-  height: 2px;
+  right: 72px;
+  top: 16px;
+  width: 80px;
+  height: 44px;
   background: repeating-linear-gradient(
     to bottom,
     var(--rose-light) 0px,
     var(--rose-light) 2px,
     transparent 2px,
-    transparent 14px
+    transparent: 14px
   );
   background-size: 100% 14px;
-  height: 48px;
+  z-index: 2;
+  transform: translateZ(4px);
+}
+
+/* 3D bottom edge */
+.postcard-link::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 4%;
+  width: 92%;
+  height: 6px;
+  background: linear-gradient(to bottom, var(--rose-light), #e8a0b0);
+  border-radius: 0 0 6px 6px;
+  transform: rotateX(-90deg);
+  transform-origin: top center;
+  opacity: 0.5;
 }
 
 .postcard-body {
-  margin-top: 1rem;
+  position: relative;
+  z-index: 3;
+  transform: translateZ(12px);
 }
 
 .postcard-greeting {
@@ -179,6 +205,7 @@ body {
   color: var(--rose-deep);
   margin-bottom: 0.75rem;
   text-shadow: 0 1px 4px rgba(180, 50, 80, 0.1);
+  text-align: left;
 }
 
 .postcard-message {
@@ -187,33 +214,45 @@ body {
   color: var(--text-dark);
   line-height: 1.7;
   font-weight: 600;
+  text-align: left;
 }
 
 .postcard-divider {
   width: 60%;
   height: 1px;
   background: linear-gradient(to right, transparent, var(--rose-light), transparent);
-  margin: 1rem auto;
+  margin: 1rem 0;
 }
 
-
-@keyframes float-gentle {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+/* Floating animation with 3D tilt */
+@keyframes float-gentle-3d {
+  0%, 100% {
+    transform: rotateX(2deg) rotateY(-1deg) translateY(0px);
+  }
+  25% {
+    transform: rotateX(4deg) rotateY(1deg) translateY(-6px);
+  }
+  50% {
+    transform: rotateX(1deg) rotateY(-2deg) translateY(-10px);
+  }
+  75% {
+    transform: rotateX(3deg) rotateY(0.5deg) translateY(-4px);
+  }
 }
 
 .postcard-float {
-  animation: float-gentle 4s ease-in-out infinite;
+  animation: float-gentle-3d 5s ease-in-out infinite;
 }
 
-
+/* Hover — 3D tilt towards viewer */
 .postcard-link:hover .postcard,
 .postcard-link:focus .postcard {
-  transform: translateY(-6px) rotate(-0.5deg);
+  transform: rotateX(6deg) rotateY(-3deg) translateY(-8px) scale(1.02);
   box-shadow:
-    0 16px 48px rgba(180, 50, 80, 0.18),
-    0 4px 12px rgba(180, 50, 80, 0.1),
-    inset 0 0 0 6px var(--cream-warm);
+    0 20px 60px rgba(180, 50, 80, 0.2),
+    0 8px 20px rgba(180, 50, 80, 0.12),
+    inset 0 0 0 6px var(--cream-warm),
+    -4px 8px 0px rgba(180, 50, 80, 0.06);
 }
 
 .postcard-link:focus-visible .postcard {
@@ -452,6 +491,7 @@ body {
   }
   .postcard {
     padding: 1.5rem 1.25rem;
+    padding-top: 4.5rem;
   }
   .btn {
     padding: 0.75rem 2.2rem;
