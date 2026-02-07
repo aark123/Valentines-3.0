@@ -1,0 +1,479 @@
+/* ============================================
+   VALENTINE'S SITE — Shared Stylesheet
+   Palette: soft pinks, deep rose, warm cream
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,300;1,500&display=swap');
+
+/* --- CSS Variables --- */
+:root {
+  --rose-deep: #b8344f;
+  --rose-mid: #d4637a;
+  --rose-light: #f2a6b5;
+  --blush: #fce4ec;
+  --cream: #fff8f0;
+  --cream-warm: #fdf1e7;
+  --gold-soft: #e8c87a;
+  --text-dark: #5a1a2a;
+  --text-mid: #8b3a50;
+  --white-soft: #fffbf8;
+  --shadow-color: rgba(180, 50, 80, 0.15);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Cormorant Garamond', 'Times New Roman', serif;
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ============================================
+   FLOWERY HEARTS BACKGROUND (reusable)
+   Inline SVG pattern via CSS — no external images
+   ============================================ */
+.bg-valentine {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-color: var(--cream);
+  /* Layered: radial warm glow + repeating SVG hearts-and-petals pattern */
+  background-image:
+    radial-gradient(ellipse at 30% 20%, rgba(242,166,181,0.35) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(212,99,122,0.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(252,228,236,0.3) 0%, transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3C!-- Heart 1 --%3E%3Cpath d='M30 38 C30 30, 40 26, 42 32 C44 26, 54 30, 54 38 C54 48, 42 56, 42 56 C42 56, 30 48, 30 38Z' fill='%23f2a6b5' opacity='0.35'/%3E%3C!-- Petal cluster 1 --%3E%3Cellipse cx='18' cy='18' rx='6' ry='3.5' fill='%23fce4ec' opacity='0.5' transform='rotate(-30 18 18)'/%3E%3Cellipse cx='18' cy='18' rx='6' ry='3.5' fill='%23fce4ec' opacity='0.4' transform='rotate(30 18 18)'/%3E%3Cellipse cx='18' cy='18' rx='6' ry='3.5' fill='%23fce4ec' opacity='0.35' transform='rotate(90 18 18)'/%3E%3Ccircle cx='18' cy='18' r='2.5' fill='%23e8c87a' opacity='0.5'/%3E%3C!-- Heart 2 (smaller) --%3E%3Cpath d='M82 78 C82 73, 88 71, 89 74 C90 71, 96 73, 96 78 C96 84, 89 89, 89 89 C89 89, 82 84, 82 78Z' fill='%23d4637a' opacity='0.22'/%3E%3C!-- Petal cluster 2 --%3E%3Cellipse cx='95' cy='25' rx='5' ry='3' fill='%23f2a6b5' opacity='0.3' transform='rotate(15 95 25)'/%3E%3Cellipse cx='95' cy='25' rx='5' ry='3' fill='%23f2a6b5' opacity='0.25' transform='rotate(75 95 25)'/%3E%3Cellipse cx='95' cy='25' rx='5' ry='3' fill='%23f2a6b5' opacity='0.3' transform='rotate(135 95 25)'/%3E%3Ccircle cx='95' cy='25' r='2' fill='%23e8c87a' opacity='0.45'/%3E%3C!-- Small scattered dots --%3E%3Ccircle cx='60' cy='10' r='1.5' fill='%23d4637a' opacity='0.2'/%3E%3Ccircle cx='10' cy='70' r='1' fill='%23f2a6b5' opacity='0.3'/%3E%3Ccircle cx='108' cy='60' r='1.2' fill='%23d4637a' opacity='0.18'/%3E%3C!-- Tiny heart --%3E%3Cpath d='M55 95 C55 92,58 91,59 93 C60 91,63 92,63 95 C63 98,59 101,59 101 C59 101,55 98,55 95Z' fill='%23f2a6b5' opacity='0.28'/%3E%3C!-- Petal cluster 3 --%3E%3Cellipse cx='42' cy='105' rx='4.5' ry='2.5' fill='%23fce4ec' opacity='0.4' transform='rotate(-45 42 105)'/%3E%3Cellipse cx='42' cy='105' rx='4.5' ry='2.5' fill='%23fce4ec' opacity='0.35' transform='rotate(45 42 105)'/%3E%3Ccircle cx='42' cy='105' r='2' fill='%23e8c87a' opacity='0.4'/%3E%3C/svg%3E");
+  background-size: auto, auto, auto, 160px 160px;
+  background-repeat: repeat;
+}
+
+/* Soft overlay so text is always readable */
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 248, 240, 0.45) 0%,
+    rgba(255, 248, 240, 0.15) 100%
+  );
+  pointer-events: none;
+}
+
+/* ============================================
+   PAGE LAYOUT
+   ============================================ */
+.page-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1.25rem;
+  text-align: center;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+.heading-main {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 3.8rem);
+  color: var(--rose-deep);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-shadow: 0 2px 12px rgba(180, 50, 80, 0.12);
+  margin-bottom: 1.5rem;
+}
+
+.heading-main em {
+  font-style: italic;
+  color: var(--rose-mid);
+}
+
+.subtext {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  color: var(--rose-deep);
+  letter-spacing: 0.04em;
+  margin-top: 1.25rem;
+  opacity: 0.85;
+}
+
+/* ============================================
+   POSTCARD (Page 1)
+   ============================================ */
+.postcard-link {
+  text-decoration: none;
+  display: block;
+  outline: none;
+  cursor: pointer;
+}
+
+.postcard {
+  position: relative;
+  width: min(88vw, 440px);
+  min-height: 240px;
+  background: var(--white-soft);
+  border: 3px solid var(--rose-light);
+  border-radius: 6px;
+  box-shadow:
+    0 8px 32px rgba(180, 50, 80, 0.12),
+    0 2px 8px rgba(180, 50, 80, 0.08),
+    inset 0 0 0 6px var(--cream-warm);
+  padding: 2rem 1.75rem;
+  transition: transform 0.4s cubic-bezier(.25,.8,.25,1), box-shadow 0.4s ease;
+  overflow: hidden;
+}
+
+/* Postcard inner decoration: stamp + lines */
+.postcard::before {
+  content: '♥';
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  width: 52px;
+  height: 60px;
+  border: 2px dashed var(--rose-light);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: var(--rose-mid);
+  background: var(--blush);
+  line-height: 60px;
+  text-align: center;
+}
+
+.postcard::after {
+  content: '';
+  position: absolute;
+  right: 80px;
+  top: 20px;
+  width: 100px;
+  height: 2px;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--rose-light) 0px,
+    var(--rose-light) 2px,
+    transparent 2px,
+    transparent 14px
+  );
+  background-size: 100% 14px;
+  height: 48px;
+}
+
+.postcard-body {
+  margin-top: 1rem;
+}
+
+.postcard-greeting {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--rose-deep);
+  margin-bottom: 0.75rem;
+}
+
+.postcard-message {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--text-mid);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.postcard-divider {
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--rose-light), transparent);
+  margin: 1rem auto;
+}
+
+/* Floating animation */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.postcard-float {
+  animation: float-gentle 4s ease-in-out infinite;
+}
+
+/* Hover / focus */
+.postcard-link:hover .postcard,
+.postcard-link:focus .postcard {
+  transform: translateY(-6px) rotate(-0.5deg);
+  box-shadow:
+    0 16px 48px rgba(180, 50, 80, 0.18),
+    0 4px 12px rgba(180, 50, 80, 0.1),
+    inset 0 0 0 6px var(--cream-warm);
+}
+
+.postcard-link:focus-visible .postcard {
+  outline: 3px solid var(--rose-mid);
+  outline-offset: 4px;
+}
+
+/* ============================================
+   ANIMATED HEART SVG (Page 2 placeholder)
+   ============================================ */
+.gif-area {
+  margin-bottom: 2rem;
+}
+
+.gif-area img {
+  max-width: min(80vw, 280px);
+  height: auto;
+  border-radius: 12px;
+}
+
+.heart-anim-svg {
+  width: 140px;
+  height: 140px;
+}
+
+@keyframes heart-beat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.18); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.12); }
+  56% { transform: scale(1); }
+}
+
+.heart-anim-svg .heart-shape {
+  animation: heart-beat 1.8s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.heart-anim-svg .sparkle {
+  animation: sparkle 2.4s ease-in-out infinite;
+}
+.heart-anim-svg .sparkle:nth-child(2) { animation-delay: 0.4s; }
+.heart-anim-svg .sparkle:nth-child(3) { animation-delay: 0.8s; }
+.heart-anim-svg .sparkle:nth-child(4) { animation-delay: 1.2s; }
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn-row {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.btn {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.85rem 2.8rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-yes {
+  background: linear-gradient(135deg, var(--rose-deep) 0%, var(--rose-mid) 100%);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(184, 52, 79, 0.35);
+}
+.btn-yes:hover, .btn-yes:focus {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 28px rgba(184, 52, 79, 0.45);
+}
+.btn-yes:focus-visible {
+  outline: 3px solid var(--gold-soft);
+  outline-offset: 3px;
+}
+
+.btn-no {
+  background: var(--blush);
+  color: var(--rose-light);
+  border: 2px solid var(--rose-light);
+  cursor: not-allowed;
+  opacity: 0.55;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+/* ============================================
+   PHOTO FRAMES (Page 3 & 4 — same component)
+   ============================================ */
+.frames-row {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+  max-width: 900px;
+}
+
+.photo-frame {
+  position: relative;
+  width: min(80vw, 250px);
+  aspect-ratio: 3 / 4;
+  background: var(--white-soft);
+  border: 4px solid var(--rose-light);
+  border-radius: 10px;
+  box-shadow:
+    0 6px 24px rgba(180, 50, 80, 0.12),
+    inset 0 0 0 4px var(--cream-warm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.photo-frame:hover {
+  transform: translateY(-4px) rotate(-1deg);
+  box-shadow: 0 12px 36px rgba(180, 50, 80, 0.18);
+}
+
+/* Decorative corner flourishes */
+.photo-frame::before,
+.photo-frame::after {
+  content: '❦';
+  position: absolute;
+  font-size: 1.1rem;
+  color: var(--rose-light);
+  opacity: 0.6;
+}
+.photo-frame::before { top: 6px; left: 8px; }
+.photo-frame::after { bottom: 6px; right: 8px; transform: rotate(180deg); }
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.photo-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--rose-light);
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.photo-placeholder-icon {
+  font-size: 2.5rem;
+  opacity: 0.5;
+}
+
+/* ============================================
+   LINK BUTTON (Page 3 "CLICK CLICK")
+   ============================================ */
+.btn-link {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.85rem 2.5rem;
+  border-radius: 50px;
+  text-decoration: none;
+  display: inline-block;
+  background: linear-gradient(135deg, var(--rose-deep) 0%, var(--rose-mid) 100%);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(184, 52, 79, 0.3);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-link:hover, .btn-link:focus {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 28px rgba(184, 52, 79, 0.4);
+}
+.btn-link:focus-visible {
+  outline: 3px solid var(--gold-soft);
+  outline-offset: 3px;
+}
+
+/* ============================================
+   ENTRANCE ANIMATIONS
+   ============================================ */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.anim-fade-up {
+  animation: fade-up 0.8s ease-out both;
+}
+
+.anim-delay-1 { animation-delay: 0.15s; }
+.anim-delay-2 { animation-delay: 0.3s; }
+.anim-delay-3 { animation-delay: 0.45s; }
+.anim-delay-4 { animation-delay: 0.6s; }
+.anim-delay-5 { animation-delay: 0.75s; }
+
+/* ============================================
+   FALLING PETALS (decorative, via JS)
+   ============================================ */
+.petal {
+  position: fixed;
+  top: -40px;
+  z-index: 0;
+  pointer-events: none;
+  font-size: 1.4rem;
+  opacity: 0;
+  animation: petal-fall linear forwards;
+}
+
+@keyframes petal-fall {
+  0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+  10%  { opacity: 0.7; }
+  90%  { opacity: 0.5; }
+  100% { opacity: 0; transform: translateY(105vh) rotate(360deg); }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 640px) {
+  .frames-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .photo-frame {
+    width: min(85vw, 280px);
+  }
+  .postcard {
+    padding: 1.5rem 1.25rem;
+  }
+  .btn {
+    padding: 0.75rem 2.2rem;
+    font-size: 1.15rem;
+  }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PICK YOUR ANSWER MISTER! 💕</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💕</text></svg>">
+</head>
+<body>
+
+  <div class="bg-valentine" aria-hidden="true"></div>
+  <div class="bg-overlay" aria-hidden="true"></div>
+
+  <main class="page-wrap">
+
+    <h1 class="heading-main anim-fade-up">So&hellip; HEHEHEHEEHEHEHH</h1>
+
+    <!-- GIF area: shows valentine.gif if you drop one in /assets, otherwise animated SVG heart -->
+    <div class="gif-area anim-fade-up anim-delay-1">
+      <!--
+        ✨ TO USE YOUR OWN GIF:
+        1. Place your GIF at assets/valentine.gif
+        2. Uncomment the <img> line below
+        3. Delete or comment out the <svg> block
+      -->
+      <!-- <img src="assets/valentine.gif" alt="Valentine animation" /> -->
+
+      <!-- Animated SVG Heart (default placeholder) -->
+      <svg class="heart-anim-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animated beating heart">
+        <defs>
+          <linearGradient id="hg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#d4637a"/>
+            <stop offset="100%" stop-color="#b8344f"/>
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2.5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- Heart shape -->
+        <path class="heart-shape" filter="url(#glow)" d="M50 88 C50 88, 12 62, 12 38 C12 22, 24 14, 36 14 C44 14, 50 22, 50 22 C50 22, 56 14, 64 14 C76 14, 88 22, 88 38 C88 62, 50 88, 50 88Z" fill="url(#hg)"/>
+        <!-- Sparkles -->
+        <circle class="sparkle" cx="26" cy="26" r="3" fill="#e8c87a" opacity="0"/>
+        <circle class="sparkle" cx="74" cy="22" r="2.5" fill="#f2a6b5" opacity="0"/>
+        <circle class="sparkle" cx="50" cy="12" r="2" fill="#e8c87a" opacity="0"/>
+        <circle class="sparkle" cx="80" cy="50" r="2" fill="#fce4ec" opacity="0"/>
+      </svg>
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-row anim-fade-up anim-delay-2">
+      <a href="page3.html" class="btn btn-yes" role="button">YES</a>
+      <button class="btn btn-no" disabled aria-disabled="true" title="Nice try 😉">NO</button>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
